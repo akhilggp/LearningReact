@@ -1,0 +1,20 @@
+/* .list{
+color: rgb(16, 8, 2);
+background-color: aqua;
+} */
+.list {
+    list-style-type: none; /* Remove default bullet points */
+    padding: 0;
+    margin: 0;
+  }
+  
+  .list li {
+    color: rgb(16, 8, 2);
+    background-color: aqua;
+    padding: 10px 0; /* Add padding for space between items */
+    border-bottom: 1px solid #ccc; /* Add a line below each item */
+  }
+  
+  .list li:last-child {
+    border-bottom: none; /* Remove the line below the last item */
+  }

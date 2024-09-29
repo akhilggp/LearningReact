@@ -6,7 +6,7 @@ import Alert from "./components/Alert";
 import { useState } from "react";
 
 function App() {
-  let list = 3;
+  let list = 2;
   const items = ["Vij", "Seattle", "Baltimore", "Virginia"];
   const [onVisibility, setOnVisibility] = useState(false);
   if (list === 0)
