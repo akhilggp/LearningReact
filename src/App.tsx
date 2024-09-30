@@ -4,11 +4,14 @@ import PropsListGroup from "./components/PropsListGroup";
 import Button from "./components/Button";
 import Alert from "./components/Alert";
 import { useState } from "react";
+import Register from "./components/Register";
+import Login from "./components/Login";
 
 function App() {
-  let list = 2;
+  let list = 4;
   const items = ["Vij", "Seattle", "Baltimore", "Virginia"];
   const [onVisibility, setOnVisibility] = useState(false);
+  let login = true;
   if (list === 0)
     return (
       <div>
@@ -27,13 +30,16 @@ function App() {
         <PropsListGroup items={items} headings="Props Cities" />
       </div>
     );
-  return (
-    <>
-      {onVisibility && (
-        <Alert onClose={() => setOnVisibility(false)}> My Alert </Alert>
-      )}
-      <Button onClick={() => setOnVisibility(true)}> My Button </Button>
-    </>
-  );
+  else if (list === 3)
+    return (
+      <>
+        {onVisibility && (
+          <Alert onClose={() => setOnVisibility(false)}> My Alert </Alert>
+        )}
+        <Button onClick={() => setOnVisibility(true)}> My Button </Button>
+      </>
+    );
+  if (login === true) return <Register></Register>;
+  return <Login></Login>;
 }
 export default App;
