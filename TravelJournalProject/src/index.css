@@ -1,0 +1,40 @@
+html, body {
+margin: 0%;
+}
+
+header {
+  background: red;
+  align-items: center;
+  display: flex;
+  color: aliceblue;
+  justify-content: center;
+}
+header > img {
+  padding: 20px 20px;
+}
+header > span {
+  align-content: center;
+}
+
+.article-main {
+  display: flex;
+  margin: 10px;
+  padding: 100px 100px;
+}
+.marker{
+  width: 7px;
+  margin-right: 4px;
+}
+.container-1 {
+  width: 125px;
+  height: 168px;
+  overflow: hidden;
+  border-radius: 5px;
+  flex-shrink: 0;
+  margin-right: 19px;
+}
+.image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
