@@ -1,20 +1,17 @@
 import React from "react";
+import { getRecipeFromMistral } from "../ai";
+
+import IngredientsList from "./IngredientsList";
+import HFRecipe from "./HFRecipe";
 export default function Body() {
   let addRemove = true;
-  const [item, updateList] = React.useState<string[]>([]);
-
-  const list = item.map((items) => {
-    return (
-      <li key={items} className="list-items">
-        {items}
-      </li>
-    );
-  });
+  const [ingredients, updateList] = React.useState<string[]>([]);
+  const [recipe, setRecipe] = React.useState("");
 
   function submitItems(formdata: FormData) {
     const data = formdata.get("ingredient") as string;
     if (addRemove && data !== "") {
-      if (item.indexOf(data) == -1)
+      if (ingredients.indexOf(data) == -1)
         updateList((prevItems) => [...prevItems, data]);
     } else {
       updateList((prevItems) => {
@@ -26,11 +23,16 @@ export default function Body() {
       });
     }
   }
+
+  async function getRecipe() {
+    const recipeMarkdown = await getRecipeFromMistral(ingredients);
+    setRecipe(recipeMarkdown || "");
+  }
   return (
     <main>
       <form action={submitItems} className="add-ingredient">
         <input
-          type="text"
+          type="search"
           placeholder="e.g. Oregano"
           aria-label="Add ingredient"
           name="ingredient"
@@ -50,17 +52,11 @@ export default function Body() {
           - Remove Ingredients
         </button>
       </form>
-      <h1> Ingredients in hand:</h1>
-      <ul>{list}</ul>
-      {item.length > 0 && (
-        <div className="get-recipe-box">
-          <h2>Ready for the Recipe?</h2>
-          <div>
-            <p>Generate a recipe from your list of Ingredients</p>
-            <button>Get a Recipe</button>
-          </div>
-        </div>
+      {ingredients.length > 0 && (
+        <IngredientsList ingredients={ingredients} getRecipe={getRecipe} />
       )}
+
+      {recipe && <HFRecipe recipe={recipe} />}
     </main>
   );
 }

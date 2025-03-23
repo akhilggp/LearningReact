@@ -81,3 +81,7 @@ main{
   color: white;
   border: none;
 }
+.get-recipe-box div button:hover {
+  background-color: azure;
+  color: black;
+}
