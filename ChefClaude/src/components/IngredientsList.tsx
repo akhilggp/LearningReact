@@ -11,12 +11,14 @@ export default function IngredientsList(props: any) {
     <section>
       <h1> Ingredients in hand:</h1>
       <ul>{list}</ul>
-      {props.ingredients.length > 3 && (
+      {props.ingredients.length > 1 && (
         <div className="get-recipe-box">
           <h2>Ready for the Recipe?</h2>
           <div>
             <p>Generate a recipe from your list of Ingredients</p>
-            <button onClick={props.getRecipe}>Get a Recipe</button>
+            <button onClick={props.getRecipe} disabled={props.loading}>
+              {props.loading ? "Getting..." : "Get a Recipe"}
+            </button>
           </div>
         </div>
       )}

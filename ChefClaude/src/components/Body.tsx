@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { getRecipeFromMistral } from "../ai";
 
 import IngredientsList from "./IngredientsList";
@@ -7,6 +7,7 @@ export default function Body() {
   let addRemove = true;
   const [ingredients, updateList] = React.useState<string[]>([]);
   const [recipe, setRecipe] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
 
   function submitItems(formdata: FormData) {
     const data = formdata.get("ingredient") as string;
@@ -25,9 +26,16 @@ export default function Body() {
   }
 
   async function getRecipe() {
+    if (ingredients.length < 2) return;
+    setLoading(true);
     const recipeMarkdown = await getRecipeFromMistral(ingredients);
     setRecipe(recipeMarkdown || "");
+    setLoading(false);
   }
+
+  React.useEffect(() => {
+    getRecipe();
+  }, [ingredients]);
   return (
     <main>
       <form action={submitItems} className="add-ingredient">
@@ -53,7 +61,11 @@ export default function Body() {
         </button>
       </form>
       {ingredients.length > 0 && (
-        <IngredientsList ingredients={ingredients} getRecipe={getRecipe} />
+        <IngredientsList
+          ingredients={ingredients}
+          getRecipe={getRecipe}
+          loading={loading}
+        />
       )}
 
       {recipe && <HFRecipe recipe={recipe} />}
